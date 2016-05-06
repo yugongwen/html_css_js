@@ -24,7 +24,6 @@
             text-align: left;
             line-height: 130%;
             vertical-align: middle;
-        
         }
         button{
 
@@ -40,7 +39,7 @@
             cursor:pointer;
             border-radius:2px;
             -webkit-transition-duration:0.4s;/* safari*/
-            transition-duration:0.4s;/*通用变换时间转变*/
+            transition-duration:0.4s;
         }
         button:hover{
             background-color:#237AD0
