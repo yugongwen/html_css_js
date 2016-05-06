@@ -1,0 +1,42 @@
+<div class="page-content">
+	<div class="table_list_tab" id="taskTab"  style="margin-bottom:0px !important;">
+    	<a href="#" class="active" target="#taskContent" url="getcolumnauthtree_maintree.html">按机构授权</a>
+    	<a href="#" class="" target="#taskContent"  url="getcolumnauthtree_leavetree.html">按人员授权</a>
+	</div>
+	<div id="taskContent" class="layoutBox" style="position: relative;clear: both; background-color:#ffffff; border:0; overflow: hidden;">
+	</div>
+</div>
+<script type="text/javascript">
+function taskInit(){
+	$('#taskTab a',$css.focusDialog()).bind('click',function () {
+		var target=$(this).attr('target');
+		// if(!target) return;
+		//获取内容
+		//if($(target).children().length == 0){
+			var url=$(this).attr('url');
+			var parm = null;
+			if(url){
+				//加载代码
+				$css.post(url,parm,function(data){
+					$(target,$css.focusDialog()).html(data);
+					$(target,$css.focusDialog()).find('form').attr('onsubmit',$(target,$css.focusDialog()).find('form').attr('onsubmit').replaceAll('dialogAjaxDone','dialogNoCloseAjaxDone'));
+				 },'html');
+			}
+		//}
+		//显示tab页
+		$(this).tab('show');
+		$(target).show();
+	}).eq(0).click();
+	$('form',$css.focusDialog()).attr('onsubmit',$('form',$css.focusDialog()).attr('onsubmit').replaceAll('dialogAjaxDone','dialogAjaxDonelogNoCloseAjaxDone'));
+}
+function taskNewTab(processInstanceId,title){
+	var id = new Date().getTime();
+	var url = $("#url",$css.focusDialog()).val()+"&processInstanceId="+processInstanceId;
+	var $taskTab = $("#taskTab",$css.focusDialog());
+	var $taskContent = $("#taskContent",$css.focusDialog());
+	$('<li><a href="#'+ id +'"  url="'+ url +'">'+ (title||'子流程') +'</a></li>').appendTo($taskTab);
+	$('<div id="'+ id +'"></div>').appendTo($taskContent);
+	taskInit();
+}
+taskInit();
+</script>

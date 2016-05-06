@@ -1,0 +1,25 @@
+<div class="mod_r" id="mod_r">
+    <form id="login-form" action="login.action" method="post" onsubmit="return validateCallback(this,loginCallback)" novalidate="novalidate">
+        <input type="hidden" name="sUser.password" id="pwd">
+        <div class="wel_txt">请登录</div>
+        <p class="account">
+            <span class="type"></span>
+            <input type="text" class="required csspwd" title="用户名不能为空，且不包含空格！" name="sUser.loginName" id="name" value="" aria-required="true"> <i class=""></i>
+        </p>
+        <p class="password">
+            <span class="type"></span>
+            <input type="password" class="required csspwd" title="密码不能为空，且不包含空格！" name="password" id="password" value="" aria-required="true"> <i class=""></i>
+        </p>
+        <p class="auth">
+            <span class="type"></span>
+            <input type="text" class="required" maxlength="4" title="请输入验证码！" name="checkCode" id="code" value="" aria-required="true">
+            <span class="code">
+                <img src="http://192.168.1.198:8080/cssapp/rand.jsp" alt="验证码" id="checkCodeImg" width="55px" style="border: 1px solid #000;"></span>
+            <i class="refresh" onclick="newImg();"></i>
+        </p>
+        <div class="btn">
+            <a herf="#" class="submit" onclick="$(this).parents('form').submit();">登 录</a>
+            <a herf="#" class="reset" onclick="loginReset();">取 消</a>
+        </div>
+    </form>
+</div>

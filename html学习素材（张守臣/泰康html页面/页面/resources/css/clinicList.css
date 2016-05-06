@@ -1,0 +1,6 @@
+body{height: 100%; background: #fff;}
+.list{padding: 10px; border-bottom: 1px solid #e1e1e1;}
+.list img{float: left; margin-top: 5px;width: 100px;}
+.introduce{margin-left: 107px; font-size: 12px; line-height: 17px;}
+.introduce h4{font-size: 17px; line-height: 24px;}
+.introduce p{color: #838383;}

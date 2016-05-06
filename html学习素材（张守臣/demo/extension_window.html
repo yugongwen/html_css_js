@@ -1,0 +1,70 @@
+<script type="text/javascript">
+  var url=['extension_window_1.html'
+          ,'getgd.html'
+          ,'extension_window_2.html'
+          ,'getcolumnauthtree_leavetree.html'
+          ,'getcolumnauthtree_tab.html'
+          ,'extension_window_3.html'
+          ,'extension_winlogin.html'
+          ];
+  function onDialog(index){
+  var a={
+    id:'_blank',
+    title:'弹出框',
+    lock:true,
+    resize: false,
+    max:false,
+    min:false,
+    padding: 0
+  }
+  var api = $.dialog(a);
+  /* jQuery ajax */
+  $.ajax({
+    url:url[index],
+    success:function(data){
+      api.content(data);
+      $(api.DOM.content[0]).initUI();
+    },
+    cache:false
+  }); 
+}
+</script>
+<style type="text/css">
+  *{
+    outline: none;
+  }
+  .t_win{
+    margin-top: 50px;
+    margin-left: 50px;
+    width: 400px;
+  }
+  .t_win li{
+    line-height: 55px;
+  }
+  .t_win button{
+    margin-left: 15px;
+    margin-top: 15px;
+    float: right;
+  }
+  .ui_content{
+    display: block;
+  }
+  .tree-panel {
+    border: none;
+    border-right: 1px solid #dfdfe2;
+  }
+  .set-btn{
+    padding-bottom: 1px !important;
+  }
+</style>
+<div class="t_win">
+  <ul>
+    <li>同用表单应用事例，查看原型请点击<button class="btn save" type="submit"  onclick="onDialog(0)">原型</button></li>
+    <li>业务类表单应用事例，查看原型请点击<button class="btn save" type="submit"  onclick="onDialog(1)">原型</button></li>
+    <li>列表应用事例，查看原型请点击<button class="btn save" type="submit"  onclick="onDialog(2)">原型</button></li>
+    <li>树形菜单应用事例，查看原型请点击<button class="btn save" type="submit"  onclick="onDialog(3)">原型</button></li>
+    <li>带有标签的树形菜单应用事例，查看原型请点击<button class="btn save" type="submit"  onclick="onDialog(4)">原型</button></li>
+    <li>关键字标签应用事例，查看原型请点击<button class="btn save" type="submit"  onclick="onDialog(5)">原型</button></li>
+    <li>弹出式登录页应用事例，查看原型请点击<button class="btn save" type="submit"  onclick="onDialog(6)">原型</button></li>
+  </ul>
+</div>

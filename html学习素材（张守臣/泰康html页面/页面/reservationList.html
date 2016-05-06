@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+		<meta content="telephone=no" name="format-detection" />
+		<title>预约订单</title>
+		<link rel="stylesheet" type="text/css" href="../resources/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../resources/css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../resources/css/lists.css" />
+		<script src="../resources/js/jquery-1.8.3.min.js"></script>
+		<script src="../resources/js/common.js"></script>
+		<script src="../resources/js/tool.js"></script>
+		<style>
+			.userInfo{margin: 0; margin-top: 15px;}
+			.submit {width: 100%; height: 45px; background: #00cc99; color: #fff; font-size: 17px;}
+			.t_tooltip_content img{margin-bottom: 10px;}
+			.t_tooltip_content{height: 120px;}
+			select{height: 50px; width: 70%; padding-right: 14px; border: none; appearance:none; -moz-appearance:none; -webkit-appearance:none; background: url("./resources/images/arrow_down.png") no-repeat scroll right center transparent; background-size: 9%;}
+			select:focus{outline: none;}
+			select::-ms-expand{display: none;}
+			.userInfo input{position: absolute; left: 32%; width: 56%; height: 50px; background: #fff; line-height: 24px;}
+			.userInfo span{width: 10px; overflow: hidden;}
+		</style>
+	</head>
+	<body>
+		<div class='wrapper'>
+			<form action="" id="reservationForm">
+		
+			<div class='orderInfo'>
+				<p>
+					<label>医院</label><input type='hidden' name='orgId' id='orgId' value=''/> <input type='text' id="hospitalName" name="orgName" />
+				</p>
+				<p>
+					<label>科室</label><input type='hidden' name='deptId' id='deptId' value=''/> <input type='text' id="deptName" name="deptName"  />
+				</p>
+				<p>
+					<label>医生</label><input type='hidden' name='doctorId' id='doctorId' value=''/> <input type='text' id="doctorName" name="doctorName" />
+				</p>
+				<p>
+					<label>预约时间</label> <input type='text' id="reservationTime" name="encounterTime" />
+				</p>
+				<!-- <p>
+					<label>挂号费</label> <input type='text' id="registerFee" class='red' placeholder='10元' />
+				</p> -->
+			</div>
+			<!-- <span class='explain'>挂号费用，您实际在就医时再缴费。</span> -->
+			<div class='userInfo'>
+				<p>
+					<label>姓名</label><input type='hidden' name='consumerId' id='consumerId' value=''/> <input type='text' placeholder='请输入真实姓名' />
+					<span>
+						<select id='customerName' name='consumerName'>
+						</select>
+					</span>
+				</p>
+				<p>
+					<label>联系电话</label><input type='text' placeholder='13810949001' />
+					<span>
+						<select id='customerMobile' name='mobile'>
+						</select>
+					</span>
+				</p>
+			</div>
+			</form>
+		</div>
+		<div class='reserBtn'>
+			<input type='button' class='submit' value='提交' />
+		</div>
+
+	</body>
+<script type="text/javascript" src="../resources/js/common.js"></script>
+<script>
+	$(function() {
+		
+		$(".submit").click(function() {
+			if(confirm("是否确定提交预约")){
+				$.post(interfaces.saveOrder,$("#reservationForm").serialize(),function(data){
+					if(data!=null&&data=='success'){
+						window.location.href = "./myList.html?statusId="+0;
+					}else{
+						alert(data);
+					}
+				});
+			}
+		});
+		      
+		/*回显订单信息*/
+		/* var ticketId =111; */
+		var ticketId = getUrlParam("ticketId");
+		$.ajax({
+			url:interfaces.ticketInfo+ticketId,
+			/* url : interfaces.ticketInfo + ticketId, */
+			type : "GET",
+			data : {},
+		    dataType : "JSON",
+			success : function(result) {				
+				if (result != null) {
+					$("#hospitalName").val(result.org_name);
+					$("#deptName").val(result.dept_name);
+					$("#doctorName").val(result.doctor_name);
+					$("#orgId").val(result.org_id);
+					$("#deptId").val(result.dept_id);
+					$("#doctorId").val(result.doctor_id);
+					$("#reservationTime").val(result.reservation_time);
+				}
+			},
+			error : function() {
+				alert("error!");
+			}
+		});
+		/* var openId=getUrlParam("openId"); */
+		var openId='wejcd';
+		$.ajax({
+		    url:interfaces.custGetRecord+openId,
+			type : "GET",
+			data : {},
+			success : function(result) {
+				
+				if (result != null) {
+					for (var i = 0; i < result.length; i++) {						
+						$("#customerName").append("<option value='"+result[i][0]+"'>"+ result[i][0]+ "</option>");
+						$("#customerMobile").append("<option value='"+result[i][1]+"'>"+ result[i][1]+ "</option>");
+					}
+				}
+			},
+			error : function() {
+				alert("error!");
+			}
+		});
+	});
+</script>
+</body>
+	
+</html>

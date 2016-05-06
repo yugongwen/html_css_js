@@ -1,0 +1,120 @@
+
+<form class="form-horizontal doc-form-validate" id="addgd_form" name="addgd_form" method="post" action="addGd.action" onsubmit="return validateCallback(this, dialogAjaxDone);">
+
+      
+  <div class="tablesld" style="border:1px solid #ffffff; padding:5px 15px 5px 15px; width:820px;">
+  	<table border="0" cellspacing="0" cellpadding="0" class="sun_t" style="width:100%;">
+      <tr>
+        <td align="center" style="vertical-align:middle; width:80px;" height="35px"><label style="color:#e02222; font-size: 12px;">*</label>题&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</td>
+        <td colspan="3" style="vertical-align:middle;"><input type="text" class="input-small required" name="title" id="title" value="" maxlength="50" style="width:360px;"></td>
+        <td align="center" style="vertical-align:middle; width:80px;">&nbsp;责&nbsp;&nbsp;任&nbsp;&nbsp;者</td>
+        <td style="vertical-align:middle; width:180px;"><input type="text" class="input-small" readonly="true" name="responUserName" id="responUserName" value="" style="background-color:#ffffff; width:150px;"></td> 
+      </tr>
+      <tr>
+        <td align="center" style="vertical-align:middle;" height="35px">&nbsp;文&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</td>
+		<td style="vertical-align:middle; width:183px;"></td>
+		<td align="center" style="width:70px; vertical-align:middle;"><label style="color:#e02222; font-size: 12px;">*</label>年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;度</td>
+		<td style="width:100px; vertical-align:middle;">
+		  <select class="input-small required" name="docYear" id="docYear" style="width:90px;">
+			<option value="" >请选择</option>
+			
+		  </select>
+		</td>
+		<td align="center" style="vertical-align:middle;"><label style="color:#e02222; font-size: 12px;">*</label>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;级</td>
+		<td style="vertical-align:middle;">
+		
+		</td>
+      </tr>
+      
+	  <tr>
+		<td align="center" style="vertical-align:middle;" height="35px">&nbsp;主&nbsp;&nbsp;题&nbsp;&nbsp;词</td>
+		<td colspan="3" style="vertical-align:middle;"><input type="text" class="input-small" name="keyword" id="keyword" value="" maxlength="30" style="width:360px;"></td>
+	    <td align="center" style="vertical-align:middle;"><label style="color:#e02222; font-size: 12px;">*</label>保管期限</td>
+		<td style="vertical-align:middle;">
+		
+    	</td>
+	  </tr> 
+	  <tr>
+		<td align="center" style="vertical-align:middle;" height="35px">&nbsp;备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注</td>
+		<td colspan="5" style="vertical-align:middle;"><input type="text" class="input-small" name="remark" id="remark" maxlength="30" style="width:670px;"></td>
+	  </tr>   
+    </table>
+  </div>  
+  <div class="set-btn" data-spy="affix" data-offset-top="200">
+	<button class="btn save" type="button" onclick="gdSubmit(this, $('#addgd_form'));">保存</button>
+	<a class="btn" href="javascript:;" onclick="$css.closeDialog();">取消</a>
+  </div>
+</form>
+<script>
+  /*function addGd(data){
+	if(data.result==0){
+		$css.closeTab();
+		$css.tip(data.msg);
+		$css.openTab({id:'DGDGL'});
+		$.cssTable.focus().submit();
+	}
+	else
+		$css.alert(data.msg);
+  }
+
+    var flag = "0";
+	var getgd_setting = {
+		data: {
+			simpleData: {
+				enable: true
+			}
+		},
+		callback: {
+			onClick: getgd_onClick
+		}
+	};
+	var getgd_zNodes = null;
+	var getgd_tree  = null;
+	
+	function getgd_onClick(e, treeId, treeNode) {
+		if(!treeNode.isParent){
+			$("#catalogId",$.cssTab.focus()).attr("value", treeNode.id);
+			var parentNode = treeNode.getParentNode();
+			var name = "";
+			if(parentNode == null)
+				name = treeNode.name;
+			else
+				name = parentNode.name + " -> " + treeNode.name;
+			$("#catalogName",$.cssTab.focus()).attr("value", name);
+			getgd_hideMenu();
+		}	
+	}
+	
+	function getgd_showMenu() {
+		$("#getgd_menuContent",$.cssTab.focus()).slideDown("fast");
+		$("#addgd_form",$.cssTab.focus()).bind("mousedown", getgd_onBodyDown);	
+	}
+	
+	function getgd_hideMenu() {
+		$("#getgd_menuContent",$.cssTab.focus()).fadeOut("fast");
+		$("#addgd_form",$.cssTab.focus()).unbind("mousedown", getgd_onBodyDown);
+	}
+	
+	function getgd_onBodyDown(event) {
+		if (!(event.target.id == "getgd_menuContent" || $(event.target).parents("#getgd_menuContent").length>0 || event.target.id == "catalogName")) {
+			getgd_hideMenu();
+		}
+	}
+	
+	function getgd_getMenu(){
+		if(flag == "0"){
+			$css.post('getGdTree.action', '', function(data){
+				if(data.result==0){
+					getgd_zNodes = data.info;
+					using('tree',function(){
+						getgd_tree =  $.fn.zTree.init($("#getgd_tree",$.cssTab.focus()), getgd_setting, getgd_zNodes);    
+					});
+					flag = "1";
+				}
+				else
+					$css.alert(data.msg);
+		    },'json');	
+		}
+		getgd_showMenu();
+	}*/
+</script>

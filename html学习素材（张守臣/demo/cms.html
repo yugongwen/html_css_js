@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<!--[if IE 7]> <html lang="en" class="ie7 no-js"> <![endif]-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<!-- BEGIN HEAD -->
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<link rel="shortcut icon" href="favicon.ico" />
+ 		<!-- Site CSS -->
+  		<link href="../cssui/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+  		<link href="../cssui/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+  		<link href="../cssui/layout/default.css" rel="stylesheet"/>
+  		<link href="../cssui/cms/metro/icons.css" rel="stylesheet"/>
+  		<link href="../cssui/cms/metro/style.css" rel="stylesheet"/>
+  		<script type="text/javascript" src="../lib/ajax-pushlet-client.js"></script>
+  	</head>
+	<body class="page-header-fixed">
+    	<div class="header navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container-fluid">
+					<a class="brand" href="index.html"><!-- <img src="../custom/brand.png" /> -->内容管理系统</a>
+					<ul class="menu">
+						<li><a href="#" class="cur"><i class="home"></i>首页</a></li>
+						<li><a href="#"><i class="column"></i>栏目管理</a></li>
+					    <li><a href="#"><i class="article"></i>文章管理</a></li>
+					    <li><a href="#"><i class="template"></i>模板管理</a></li>
+					    <li><a href="#"><i class="system"></i>系统管理</a></li>
+					</ul>          
+					<ul class="nav pull-right">
+						<li class="dropdown user">您好！王大曲</li>
+						<li class="dropdown">
+							<a href="javascript:;">
+							设置
+							</a>
+						</li>
+						<li class="dropdown">
+							<a href="javascript:;">
+							退出
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+    	<div class="page-container">
+				<div class="page-sidebar" role="main">
+					<div class="folder"><a></a></div>
+					<ul class="page-sidebar-menu">
+						<li>
+							<a href="javascript:;" title="内容管理系统">
+							<i class="icon_setting"></i> 
+							<span class="title">内容管理系统</span>
+							<span class="selected"></span>
+							</a>
+							<ul class="sub-menu">
+								<li class="active">
+									<a href="cms_wel.html" target="cssTab">欢迎页</a>
+								</li>
+								<li>
+									<a href="cms_form.html" target="cssTab">表单页</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+      			</div>
+				<div class="page-content">
+					<div id="tab-01">
+						<ul class="dropdown-menu" id="menu1">
+							<li>
+								<a href="javascript:;" rel="reload">刷新标签页</a>
+							</li>
+							<li>
+								<a href="javascript:;" rel="close">关闭标签页</a>
+							</li>
+							<li>
+								<a href="javascript:;" rel="closeOther">关闭其他标签页</a>
+							</li>
+							<li>
+								<a href="javascript:;" rel="closeAll">关闭全部标签页</a>
+							</li>
+						</ul>
+						<ul class="nav nav-tabs" context-menu="menu1" style="margin-right: 48px;">
+							<li class="active ">
+								<a tabid="home" href="#home">首页</a>
+							</li>
+						</ul>
+						<div class="tab-btn">
+							<!-- <a href="javascript:;" class="left"></a>
+							<a href="javascript:;" class="right"></a>-->
+							<a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle more"><i></i></a>
+							<ul class="dropdown-menu">
+							</ul> 
+						</div>
+						<div class="tab-content layoutBox">
+							<div class="tab-pane active" id="home">
+								<div class="row-fluid column-seperation text-center"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+    		</div>
+    	<!--
+    	<footer class="footer text-center">
+    		<div class="footer-inner">
+				2013 © MMMMMM by LLLLL.
+			</div>
+    	</footer>	
+    	-->
+    <script type="text/javascript" src="../cssui/js/easyloader.js"></script>
+    <script type="text/javascript" src="../cssui/plugins/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="../cssui/plugins/jquery.history.js"></script>
+    <script type="text/javascript" src="../cssui/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../cssui/plugins/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="../cssui/plugins/jquery.blockui.min.js"></script>
+    <script type="text/javascript" src="../cssui/plugins/lhgdialog/lhgdialog.min.js?skin=add"></script>
+    <script type="text/javascript" src="../cssui/plugins/ajaxupload/ajaxupload.3.6.min.js"></script>
+    <script type="text/javascript" src="../cssui/js/cssui.js"></script>
+    <script type="text/javascript" src="../cssui/js/app.js"></script>
+    <script type="text/javascript">
+    	// using('dialog',function(){
+    	// 	var dg = new $.dialog({   
+		   //       id: 'test1',   
+		   //       title: '弹出窗口',   
+		   //       html: '弹出窗口内容' 
+		   //  });
+    	// })
+    g_user={id:'<ww:property value="#session.sUser.userId" />',name:'<ww:property value="#session.sUser.realName" />'};
+    </script>
+  </body>
+</html>

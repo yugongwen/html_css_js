@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+<meta content="telephone=no" name="format-detection" />
+<title>我的订单</title>
+<link rel="stylesheet" type="text/css" href="../resources/css/reset.css" />
+<link rel="stylesheet" type="text/css"
+	href="../resources/css/common.css" />
+<link rel="stylesheet" type="text/css"
+	href="../resources/css/myList.css" />
+<script src="../resources/js/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+	<div class='wrapper'>
+		<div class='title_tab'>
+			<ul>
+				<li class='active'>进行中</li>
+				<li>已完成</li>
+				<li>已取消</li>
+			</ul>
+		</div>
+		<div class='lists' style="display: block;" id="reservationList">
+
+		</div>
+		<div class='lists' id="completedList"></div>
+		<div class='lists' id="canceledList"></div>
+	</div>
+
+	<!-- 取消预约弹出框 -->
+	<div id='box_tooltip' style='display: none;'>
+		<div class='t_mask'></div>
+		<div class='t_tooltip'>
+			<div class='t_tooltip_content'>
+				<img src='../resources/images/error.png' />
+				<h5>您确定要取消订单</h5>
+				<p>(注:取消订单次数3次，将不能订单)</p>
+			</div>
+			<div class='t_tooltip_btn'>
+				<span class='t_tooltip_lBtn'> <input type="hidden"
+					id="hidorderId" /> 确认
+				</span> <span class='t_tooltip_rBtn'>取消</span>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="../resources/js/common.js"></script>
+	<script>
+$(function(){
+	
+	var h = $("body").height() - $(".title_tab").outerHeight();
+	$(".lists").css("height", h+"px");
+	
+	var statusId = getUrlParam("statusId");
+	
+	statusId=statusId==null?0:statusId;
+	
+	$(".title_tab li").each(function(){
+		var idx = $(this).index();
+		if(idx==statusId){
+			if($(this).hasClass("active")){
+				return;
+			}
+			$(this).addClass("active").siblings().removeClass("active");
+			$(".lists").eq(idx).show().siblings(".lists").hide();
+		}
+	});
+	
+	
+			
+		$.ajax({
+			url:interfaces.orderlist+statusId,
+			type:"GET",
+			data:{},
+			dataType:"JSON",
+			success :function (result){
+				if(result!=null){
+					for(var i=0;i<result.length;i++){
+						var order=result[i];
+						
+						var listItem=$("<div class='list'></div>");
+						if(order.orderStatusId==0){//进行中
+							listItem.append("<p class='list_top'><span>订单ID: "+order.orderNumber+"</span><input type='hidden' value='"+order.orderId+"' class='hidoId' /><input type='button' value='取消订单' class='list_btn cancel' /></p>");
+						}else if(order.orderStatusId==1){
+							listItem.append("<p class='list_top'><span>订单ID: "+order.orderNumber+"</span><input type='hidden' value='"+order.orderId+"' class='hidoId' /><input type='button' value='已完成' class='list_btn completed' /></p>");
+						}else{
+							listItem.append("<p class='list_top'><span>订单ID: "+order.orderNumber+"</span><input type='hidden' value='"+order.orderId+"' class='hidoId' /><input type='button' value='已取消' class='list_btn canceled' /></p>");
+						}
+						listItem.append("<p class='list_deparment'><span>"+order.orgName+"&nbsp;"+order.deptName+"&nbsp;"+order.doctorName+"&nbsp;"+order.patientName+"</span><img src='../resources/images/arrow.png' class='right' /></p>");
+						if(order.orderStatusId==0){//进行中
+							listItem.append("<p class='list_time'><span>预约时间: </span><span class='time'>"+order.encounterDate+"</span><span class='right'>类别: 挂号加号</span></p>");
+						}else if(order.orderStatusId==1){
+							listItem.append("<p class='list_time'><span>完成时间: </span><span class='time'>"+order.encounterDate+"</span><span class='right'>类别: 挂号加号</span></p>");
+						}else{
+							listItem.append("<p class='list_time'><span>取消时间: </span><span class='time'>"+order.encounterDate+"</span><span class='right'>类别: 挂号加号</span></p>");
+						}
+						
+						if(order.orderStatusId==0){
+							listItem.appendTo($("#reservationList"));
+						}
+						if(order.orderStatusId==1){
+							listItem.appendTo($("#completedList"));
+						}
+						if(order.orderStatusId==2){
+							listItem.appendTo($("#canceledList"));
+						}
+					}
+					//选项卡的点击事件
+					$(".title_tab li").click(function(){
+						var idx = $(this).index();
+						window.location.href="./myList.html?statusId="+idx;	
+					}); 
+				
+					//取消预约点击事件
+					$(".cancel").click(function(){
+						$("#box_tooltip").show();
+						$("#hidorderId").val($(this).prev().val());
+					});
+			
+					$(".t_tooltip_btn span").click(function(){
+						if($(this).index() == 0){
+							 var orderId = $("#hidorderId").val(); 
+							/*点击确认取消订单*/
+							$.ajax({
+									url:interfaces.orderCancel+orderId,
+									type:"PUT",
+									data:{},
+									/* dataType:"JSON", */
+									success:function (result){
+										alert(result);
+										if(result!=null&&result=="success"){
+											alert("取消订单成功!");
+											window.location.href="./viewList_canceled.html";
+										}else if(result!=null&&result=="error"){
+											alert("取消订单失败!");
+										}else if(result!=null&&result=="completed"){
+											alert("订单已完成，不能进行取消");
+											window.location.href="./myList.html";
+										}else if(result!=null&&result=="canceled"){
+											alert("订单已取消，不能再次取消");
+											window.location.href="./myList.html";
+										}
+									},error:function (){
+										alert("error!");
+								}});
+						}else{
+							alert("您已经放弃取消订单！");
+						}
+						$("#box_tooltip").hide();
+					});
+			
+					$(".list_deparment").click(function(){
+						var orderId = $(this).prev().find(".hidoId").val();
+						window.location.href="./viewList.html?orderId="+orderId;
+				  	});
+				}
+			}
+		});
+});
+</script>
+</html>

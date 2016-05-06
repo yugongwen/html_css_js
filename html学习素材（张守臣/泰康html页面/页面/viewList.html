@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+		<meta content="telephone=no" name="format-detection" />
+		<title>查看订单</title>
+		<link rel="stylesheet" type="text/css" href="../resources/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../resources/css/lists.css" />
+		<script src="../resources/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="../resources/js/common.js"></script>
+		<style>
+			
+		</style>
+	</head>
+	<body>
+
+		<div class='wrapper'>
+			<div class='userInfo'>
+				<p>
+					<label>姓名</label> <span id="consumer_name"></span>
+				</p>
+				<p>
+					<label>联系电话</label><span id="mobile"></span>
+				</p>
+			</div>
+			<div class='orderInfo'>
+				<p>
+					<label>医院</label><span id="org_name"></span>
+				</p>
+				<p>
+					<label>科室</label><span id="dept_name"></span>
+				</p>
+				<p>
+					<label>医生</label><span id="doctor_name"></span>
+				</p>
+				<p>
+					<label>预约时间</label><span id="ordertime"></span>
+				</p>
+<!-- 				<p>
+					<label>挂号费</label><span id="price" class='red'></span>
+				</p> --> 
+			</div>
+			<span class='explain'>挂号费用，您实际在就医时再缴费。</span>
+		</div>
+	</body>
+	<script>
+	$(function() {
+	
+	//	var orderId = getUrlParam("orderId");
+       var orderId=111;
+       // var aa=isbinded(111,111);
+		/*回显订单信息*/
+		$.ajax({
+			url : interfaces.orderInfo + 111,
+			type : "GET",
+			data : {},
+			dataType : "JSON",
+			success : function(result) {
+				alert("调用成功！");
+				debugger
+				if (result != null) {
+					$("#consumer_name").html(result.consumer_name);
+					$("#mobile").html(result.mobile);
+					$("#org_name").html(result.org_name);
+					$("#dept_name").html(result.dept_name);
+					$("#doctor_name").html(result.doctor_name);
+					$("#ordertime").html(result.ordertime);
+					$("#price").html(result.price);
+				}
+			},
+			error : function() {
+				alert("获取订单信息失败!");
+			}
+		});
+		
+		
+	});
+	</script>
+</html>

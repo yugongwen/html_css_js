@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+		<meta content="telephone=no" name="format-detection" />
+		<title>用户注册</title>
+		<link rel="stylesheet" type="text/css" href="../resources/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../resources/css/register.css" />
+		<script src="../resources/js/jquery-1.8.3.min.js"></script>
+	</head>
+	<body>
+		<div class='head'>
+			<img src="../resources/images/logo.png" />
+			<div>泰康医院</div>
+			<div>医院、诊所集团</div>
+		</div>
+		<div class='s_form'>
+			<p>
+				<input type='text' class='phone' placeholder='请输入您的手机号' />
+			</p>
+			<p>
+				<input type='text' class='code' placeholder='请输入验证码' />
+				<span class="btn send">发送验证码</span>
+			</p>
+			<p><span class='btn bind'>绑定</span></p>
+		</div>
+		<div class='success'>
+			<img src='../resources/images/ok.png' />
+			</br>
+			<h4>恭喜您绑定成功</h4>
+		</div>
+	</body>
+	<script>
+	    var idType='mobile';
+	    var value='11111111111';
+	    var openId='1234';
+		$(".bind").click(function(){
+			
+			$.ajax({
+			    url:"http://localhost:8080/tkh-o2o-web/cust/bind/"+idType+"/"+value+"/"+openId,
+				type : "POST",
+				data : {},
+				success : function(result) {
+					if(result!=null&&result=="success"){
+						$(".success").show();
+					}else{
+						alert("用户微信绑定失败！");
+					}
+				}
+			}),
+			 setTimeout(function(){
+             window.location.href="./reservationList.html";
+			},3000);
+		});
+	</script>
+</html>

@@ -1,0 +1,96 @@
+<div class="sch_config">
+	<div class="mod_title">
+		<span>数据源</span>
+		<a href="javascript:void(0);" class="add" title="添加数据源" onclick="addDs();"><i></i>添加</a>
+	</div>
+	<div id="ds_table" class="ds_table">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th style="width: 80px">操作</th>
+					<th style="width:250px">数据库URL</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<input type="hidden" name="dsConfId" id="dsConfId" value="d55e4547eb76462e9d1c2fef5ce02b14">
+
+				<tr>
+					<td class="text-center" nowrap="nowrap">
+						<a href="javascript:;" title="删除" onclick="delRow(this);">删除</a>
+					</td>
+					<td class="text-center">jdbc:dm://127.0.0.1:5236</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="mod_title">
+		<span>数据表</span>
+	</div>
+	<div id="table_mini" class="table_mini">
+   		选择数据表
+   		<select id="table" name="tableName" class="input-xlarge" onchange="obtain(this);">
+		</select>
+    </div>
+    <div class="mod_title">
+		<span>表字段</span>
+	</div>
+	<div id="idx_field" class="idx_field clear">
+		<div style="width: 865px;">
+			<div id="div_user" class="flo_l" style="width:280px;">
+				<div class="s_mod_title">
+					<span>表字段</span>
+				</div>
+				<div id="user_post_list" class="s_mod_con" style="height: 365px;">
+					<table>
+						<tbody>
+							<tr onclick="fieldByClick(this);">
+								<td>SEQ_ID</td>
+							</tr>
+
+							<tr onclick="fieldByClick(this);">
+								<td>ID</td>
+							</tr>
+
+							<tr onclick="fieldByClick(this);">
+								<td>SQL_TYPE</td>
+							</tr>
+
+							<tr onclick="fieldByClick(this);">
+								<td>FLAG</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="mid_pic flo_l iconspage"><i id="add_sel"></i></div>
+			<div id="sel_div_user" style="float:rihgt;">
+				<div class="s_mod_title">
+					<span>检索项</span>
+				</div>
+				<div id="idx_item_field" class="idx_item_field" style="height:355px;overflow:auto;">
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th style="width: 50px" class="center">
+									<div style="width:26px;">
+										<img src="portal/images/icon/btn_del.png">
+									</div>
+								</th>
+								<th style="width: 300px;">字段名</th>
+								<th style="width:600px;">字段类型</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>	
+	</div>
+</div>

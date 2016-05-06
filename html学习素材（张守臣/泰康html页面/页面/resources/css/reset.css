@@ -1,0 +1,32 @@
+@charset "utf-8";
+/* CSS Document */
+/*** HTML5移动重置样式表*/
+/* ============================ 重置css样式 ============================ */	
+/* 清除内外边距 */
+body,html,header,footer,section,span,p,h1,h2,h3,h4,h5,h6,ul,li,select,input,button,textarea,aside,article,i,em,form{margin:0; padding:0;-webkit-tap-highlight-color:transparent;}
+/* 设置默认字体 */
+body,button,input,select,textarea{font:62.5%/1 "微软雅黑","黑体","_sans";}
+h1,h2,h3,h4,h5,h6{font-size:1.5em; font-weight:normal;}
+i{font-style:normal;}
+em{font-weight:normal; font-style:normal;}
+button{border:none;}
+/* 重置列表元素 */
+ul, ol{list-style:none;}
+/* 重置文本格式元素 */
+a{text-decoration:none;}
+textarea:focus, a:focus{outline:none;}
+img{width:100%; border:none; vertical-align:middle;}
+/* 重置表格元素 */
+table{border-collapse:collapse; border-spacing:0;}
+/*重置苹果默认按钮样式*/
+input{-webkit-appearance:none; border:none; outline:none;}
+textarea{box-shadow:none;}
+/* ========================= 页面常用样式 CSS样式 =========================== */	
+html,body{width:100%; overflow-x:hidden; color:#424242;font-size:16px;}
+body{-text-size-adjust:none; overflow:hidden; -webkit-user-select:none; -webkit-tap-highlight-color:none;}
+/*清除浮动*/
+.clearfix:after{display:block; clear:both; height:0; visibility:hidden; content:" ";}
+/*超出文字显示点点点*/
+.text-hide{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;}
+/*====页面公用样式====*/
+body{background:#f8f8f8; /*font-size:1em;*/}

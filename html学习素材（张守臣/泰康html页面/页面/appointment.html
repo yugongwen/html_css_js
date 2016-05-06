@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+<meta content="telephone=no" name="format-detection" />
+<title>医生选择</title>
+<link rel="stylesheet" type="text/css" href="../resources/css/reset.css" />
+<link rel="stylesheet" type="text/css"
+	href="../resources/css/appointment.css" />
+<script src="../resources/js/jquery-1.8.3.min.js"></script>
+
+</head>
+<body>
+	<div class='wrapper' id="doctorList">
+	
+	</div>
+	<footer>
+		<div>
+			<img src='../resources/images/map.png' /> <span>附近发现诊所</br>小病可以去诊所，方便又安全
+			</span>
+		</div>
+		<div>
+			<a><img src='../resources/images/arrow.png' /></a>
+		</div>
+	</footer>
+</body>
+<script type="text/javascript" src="../resources/js/common.js"></script>
+<script>
+var outcallstatus={0:"有号",1:"约满",2:"不出诊"};
+var outcallclass={1:"gray",2:"noVisit"};//1约满,2不出诊
+$(function(){
+	
+	$.ajax({
+		url:interfaces.ticketList,
+		type:"GET",
+		data:{},
+		dataType:"JSON",
+		success :function (result){
+			if(result!=null){
+				for(var i = 0 ;i<result.length;i++){
+					var doctor = result[i];
+					var doctorItem = $("<div class='item'></div>");
+					doctorItem.append("<input type='hidden' class='doctoridHidVal' value='"+doctor.doctorId+"' />");
+					var doctorItemTop = $("<div class='item_top'></div>");
+					var doctorItemLeft = $("<div class='left'></div>");
+					var doctorItemBottom = $("<div class='item_bottom'></div>");
+					
+					doctorItemLeft.append("<img src='../resources/images/"+doctor.photoname+"' />");
+					doctorItemLeft.appendTo(doctorItemTop);
+					var doctorItemInfo = $("<div class='info'></div>");
+					doctorItemInfo.append("<div><span class='name'>"+doctor.doctorName+"</span><span class='title'>"+doctor.title+"</span><span class='title'>"+doctor.title+"</span></div>");
+					doctorItemInfo.append("<div class='department'>"+doctor.departmentName+"</div>");
+					doctorItemInfo.appendTo(doctorItemTop);
+					doctorItemTop.appendTo(doctorItem);
+					doctorItem.append("<div class='description'>"+doctor.goodat+"</div>");
+					
+					if(doctor.day1outcallstatus!=0){
+						doctorItemBottom.append("<span class='"+outcallclass[doctor.day1outcallstatus]+"'>"+doctor.day1week+"</br>("+outcallstatus[doctor.day1outcallstatus]+")</span>");
+					}else{
+						doctorItemBottom.append("<span >"+doctor.day1week+"</br>("+doctor.day1tikckets+")</span>");
+					}
+					if(doctor.day2outcallstatus!=0){
+						doctorItemBottom.append("<span class='"+outcallclass[doctor.day2outcallstatus]+"'>"+doctor.day2week+"</br>("+outcallstatus[doctor.day2outcallstatus]+")</span>");
+					}else{
+						doctorItemBottom.append("<span >"+doctor.day2week+"</br>("+doctor.day2tikckets+")</span>");
+					}
+					if(doctor.day3outcallstatus!=0){
+						doctorItemBottom.append("<span class='"+outcallclass[doctor.day3outcallstatus]+"'>"+doctor.day3week+"</br>("+outcallstatus[doctor.day3outcallstatus]+")</span>");
+					}else{
+						doctorItemBottom.append("<span >"+doctor.day3week+"</br>("+doctor.day3tikckets+")</span>");
+					}
+					if(doctor.day4outcallstatus!=0){
+						doctorItemBottom.append("<span class='"+outcallclass[doctor.day4outcallstatus]+"'>"+doctor.day4week+"</br>("+outcallstatus[doctor.day4outcallstatus]+")</span>");
+					}else{
+						doctorItemBottom.append("<span >"+doctor.day4week+"</br>("+doctor.day4tikckets+")</span>");
+					}
+					if(doctor.day5outcallstatus!=0){
+						doctorItemBottom.append("<span class='"+outcallclass[doctor.day5outcallstatus]+"'>"+doctor.day5week+"</br>("+outcallstatus[doctor.day5outcallstatus]+")</span>");
+					}else{
+						doctorItemBottom.append("<span >"+doctor.day5week+"</br>("+doctor.day5tikckets+")</span>");
+					}
+					doctorItemBottom.appendTo(doctorItem);
+					
+					
+					var doctorItemBottomTimes = $("<div class='item_bottom_times'></div>");
+					
+					var doctorItemBottomTimeDay1 = $("<div class='item_bottom_time'></div>");
+					var doctorItemBottomTimePeriodDay1=$("<div class='period'></div>");
+					if(doctor.day1amoutcallstatus!=0){
+						doctorItemBottomTimePeriodDay1.append("<span class='gray'>上午</br><em>("+outcallstatus[doctor.day1amoutcallstatus]+")</em></span>");
+					}else{
+						doctorItemBottomTimePeriodDay1.append("<span >上午</br><input type='hidden' class='timeSlotId' value='1'/> <em>("+doctor.day1amtikckets+")</em></span>");
+					}
+					if(doctor.day1pmoutcallstatus!=0){
+						doctorItemBottomTimePeriodDay1.append("<span class='gray'>下午</br><em>("+outcallstatus[doctor.day1pmoutcallstatus]+")</em></span>");
+					}else{
+						doctorItemBottomTimePeriodDay1.append("<span >下午</br><input type='hidden' class='timeSlotId' value='2'/><em>("+doctor.day1pmtikckets+")</em></span>");
+					}
+					doctorItemBottomTimePeriodDay1.appendTo(doctorItemBottomTimeDay1);
+					doctorItemBottomTimeDay1.appendTo(doctorItemBottomTimes);
+					
+					var doctorItemBottomTimeDay2 = $("<div class='item_bottom_time'></div>");
+					var doctorItemBottomTimePeriodDay2=$("<div class='period'></div>");
+					
+					if(doctor.day2amoutcallstatus!=0){
+						doctorItemBottomTimePeriodDay2.append("<span class='gray'>上午</br><em>("+outcallstatus[doctor.day2amoutcallstatus]+")</em></span>");
+					}else{
+						doctorItemBottomTimePeriodDay2.append("<span >上午</br><input type='hidden' class='timeSlotId' value='1'/> <em>("+doctor.day2amtikckets+")</em></span>");
+					}
+					if(doctor.day2pmoutcallstatus!=0){
+						doctorItemBottomTimePeriodDay2.append("<span class='gray'>下午</br><em>("+outcallstatus[doctor.day2pmoutcallstatus]+")</em></span>");
+					}else{
+						doctorItemBottomTimePeriodDay2.append("<span >下午</br><input type='hidden' class='timeSlotId' value='2'/><em>("+doctor.day2pmtikckets+")</em></span>");
+					}
+					doctorItemBottomTimePeriodDay2.appendTo(doctorItemBottomTimeDay2);
+					doctorItemBottomTimeDay2.appendTo(doctorItemBottomTimes);
+					
+					var doctorItemBottomTimeDay3 = $("<div class='item_bottom_time'></div>");
+					var doctorItemBottomTimePeriodDay3=$("<div class='period'></div>");
+					
+					if(doctor.day3amoutcallstatus!=0){
+						doctorItemBottomTimePeriodDay3.append("<span class='gray'>上午</br><em>("+outcallstatus[doctor.day3amoutcallstatus]+")</em></span>");
+					}else{
+						doctorItemBottomTimePeriodDay3.append("<span >上午</br><input type='hidden' class='timeSlotId' value='1'/> <em>("+doctor.day3amtikckets+")</em></span>");
+					}
+					if(doctor.day3pmoutcallstatus!=0){
+						doctorItemBottomTimePeriodDay3.append("<span class='gray'>下午</br><em>("+outcallstatus[doctor.day3pmoutcallstatus]+")</em></span>");
+					}else{
+						doctorItemBottomTimePeriodDay3.append("<span >下午</br><input type='hidden' class='timeSlotId' value='2'/><em>("+doctor.day3pmtikckets+")</em></span>");
+					}
+					doctorItemBottomTimePeriodDay3.appendTo(doctorItemBottomTimeDay3);
+					doctorItemBottomTimeDay3.appendTo(doctorItemBottomTimes);
+					
+					var doctorItemBottomTimeDay4 = $("<div class='item_bottom_time'></div>");
+					var doctorItemBottomTimePeriodDay4=$("<div class='period'></div>");
+					if(doctor.day4amoutcallstatus!=0){
+						doctorItemBottomTimePeriodDay4.append("<span class='gray'>上午</br><em>("+outcallstatus[doctor.day4amoutcallstatus]+")</em></span>");
+					}else{
+						doctorItemBottomTimePeriodDay4.append("<span >上午</br><input type='hidden' class='timeSlotId' value='1'/> <em>("+doctor.day4amtikckets+")</em></span>");
+					}
+					if(doctor.day4pmoutcallstatus!=0){
+						doctorItemBottomTimePeriodDay4.append("<span class='gray'>下午</br><em>("+outcallstatus[doctor.day4pmoutcallstatus]+")</em></span>");
+					}else{
+						doctorItemBottomTimePeriodDay4.append("<span >下午</br><input type='hidden' class='timeSlotId' value='2'/><em>("+doctor.day4pmtikckets+")</em></span>");
+					}
+					doctorItemBottomTimePeriodDay4.appendTo(doctorItemBottomTimeDay4);
+					doctorItemBottomTimeDay4.appendTo(doctorItemBottomTimes);
+					
+					var doctorItemBottomTimeDay5 = $("<div class='item_bottom_time'></div>");
+					var doctorItemBottomTimePeriodDay5=$("<div class='period'></div>");
+					if(doctor.day5amoutcallstatus!=0){
+						doctorItemBottomTimePeriodDay5.append("<span class='gray'>上午</br><em>("+outcallstatus[doctor.day5amoutcallstatus]+")</em></span>");
+					}else{
+						doctorItemBottomTimePeriodDay5.append("<span >上午</br><input type='hidden' class='timeSlotId' value='1'/><em>("+doctor.day5amtikckets+")</em></span>");
+					}
+					if(doctor.day5pmoutcallstatus!=0){
+						doctorItemBottomTimePeriodDay5.append("<span class='gray'>下午</br><em>("+outcallstatus[doctor.day5pmoutcallstatus]+")</em></span>");
+					}else{
+						doctorItemBottomTimePeriodDay5.append("<span >下午</br><input type='hidden' class='timeSlotId' value='2'/> <em>("+doctor.day5pmtikckets+")</em></span>");
+					}
+					doctorItemBottomTimePeriodDay5.appendTo(doctorItemBottomTimeDay5);
+					doctorItemBottomTimeDay5.appendTo(doctorItemBottomTimes);
+					
+					doctorItemBottomTimes.append("<img src='../resources/images/arrow_top.png' />");
+					doctorItemBottomTimes.appendTo(doctorItem);
+					doctorItem.appendTo($("#doctorList"));
+					
+				}
+				
+				var cHeight = $("body").height() - 45;
+				$(".wrapper").css("height", cHeight + 'px');
+				//选择周几的点击事件
+				$(".item_bottom span").click(function(){
+					if($(this).hasClass("gray") || $(this).hasClass("noVisit")){
+						return;
+					}
+					var idx = $(this).index(), 
+						width = $(this).width(),
+						next = $(this).parent().next(), 
+						left = 10 + idx*width + (idx-1)*6 + width/2;
+						nDom = $(next).children().eq(idx),
+						imgDom = $(next).find("img");
+					if(nDom.css("display") == "block"){
+						nDom.hide();
+						imgDom.hide();
+						return;
+					}
+					if(imgDom.css("display") == "none") imgDom.show();
+					
+					nDom.fadeIn(150).siblings(".item_bottom_time").hide();
+					imgDom.stop(false, true).animate({"left" : left + "px"}, 300);
+					if($(this).hasClass("allDay")){
+						$(".period").css("margin-left", left - $(".period span").width() + "px");
+					}
+				});
+				//时间点击事件
+				$(".period span").click(function(){
+					if($(this).hasClass("gray")){
+						return;
+					}
+					var doctorId = $(this).parent().parent().parent().parent().find(".doctoridHidVal").val();
+					var timeSlotId = $(this).find(".timeSlotId").val();
+					$.get("ticketSource/"+doctorId+"/"+timeSlotId,function(result){
+						if(result!=null){
+							$.get("cust/checkbindstatus",function(data){
+								if(data!=null&&data=='isbind'){
+									window.location.href="./reservationList.html?ticketId="+result.ticketId+"&openId="+openid;
+								}else{
+									window.location.href="./register.html?ticketId="+result.ticketId;
+								}
+							});
+						}
+					});
+					
+				});
+				//附近诊所
+				$("footer").click(function(){
+					window.location.href="./clinicList.html";
+				});
+			}
+		},error:function (){
+			alert("add category failed!");
+		}
+		});
+
+});
+		
+		
+</script>
+</html>

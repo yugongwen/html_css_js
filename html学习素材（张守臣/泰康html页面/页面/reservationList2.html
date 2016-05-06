@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+		<meta content="telephone=no" name="format-detection" />
+		<title>预约订单</title>
+		<link rel="stylesheet" type="text/css" href="../resources/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../resources/css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../resources/css/lists.css" />
+		<script src="../resources/js/jquery-1.8.3.min.js"></script>
+		<script src="../resources/js/tool.js"></script>
+		<style>
+			.userInfo{margin: 0; margin-top: 15px;}
+			.submit {width: 100%; height: 45px; background: #00cc99; color: #fff; font-size: 17px;}
+			.t_tooltip_content img{margin-bottom: 10px;}
+			.t_tooltip_content{height: 120px;}
+			select{height: 50px; width: 65%; padding-right: 14px; border: none; appearance:none; -moz-appearance:none; -webkit-appearance:none; background: url("../resources/images/arrow_down.png") no-repeat scroll right center transparent; background-size: 9%;}
+			select:focus{outline: none;}
+			select::-ms-expand{display: none;}
+			.userInfo input{position: absolute; left: 32%; width: 58%; height: 50px; background: #fff; line-height: 24px;}
+			.userInfo span{width: 10px; overflow: hidden;}
+		</style>
+	</head>
+	<body>
+		<div class='wrapper'>
+			<div class='orderInfo'>
+				<p>
+					<label>医院</label> <input type='text' placeholder='南京市仙林鼓楼医院' />
+				</p>
+				<p>
+					<label>科室</label> <input type='text' placeholder='神经外科' />
+				</p>
+				<p>
+					<label>医生</label> <input type='text' placeholder='张华' />
+				</p>
+				<p>
+					<label>预约时间</label> <input type='text' placeholder='2月17号 上午10:30' />
+				</p>
+				<p>
+					<label>挂号费</label> <input type='text' class='red' placeholder='10元' />
+				</p>
+			</div>
+			<span class='explain'>挂号费用，您实际在就医时再缴费。</span>
+			<div class='userInfo'>
+				<p>
+					<label>姓名</label> <input type='text' placeholder='请输入真实姓名' />
+					<span>
+						<select>
+							<option>王硕</option>
+							<option>赵宇</option>
+							<option>杨帆</option>
+							<option>白凡</option>
+						</select>
+					</span>
+				</p>
+				<p>
+					<label>联系电话</label> <input type='text' placeholder='13810949001' />
+					<span>
+						<select>
+							<option>13810949001</option>
+							<option>18124559685</option>
+							<option>13245678956</option>
+							<option>13589656584</option>
+						</select>
+					</span>
+				</p>
+			
+			</div>
+			
+		</div>
+		<div class='reserBtn'>
+			<input type='button' class='submit' value='提交' />
+		</div>
+		<!-- 提交成功弹出框 -->
+		<!-- <div id='box_tooltip' style='display: none;' >
+			<div class='t_mask' ></div>
+			<div class='t_tooltip'>
+				<div class='t_tooltip_content'>
+					<img src='../resources/images/success.png' />
+					<h5>您的订单提交成功</h5>
+				</div>
+				<div class='t_tooltip_btn'>
+					<span class='t_tooltip_ok'>查看我的订单(<span>3<span>秒)</span>
+				</div>
+			</div>
+		</div> -->
+	</body>
+	<script>
+		$(function(){
+			$(".submit").click(function(){
+				showMessDialog("success", "您的订单提交成功", "查看我的订单(<em class=second>3</em>秒)", clickFun);
+				//showMessDialog("error", "您的订单提交失败", "继续提交", null);
+			});
+			
+			$("select").change(function(){
+				var optVal = $(this).val();
+				$(this).parent().siblings("input").val(optVal);
+			});
+		})
+		
+		function clickFun(){
+			window.location.href="./myList.html";
+		} 
+		
+	</script>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+		<meta content="telephone=no" name="format-detection" />
+		<title>科室介绍详情</title>
+		<link rel="stylesheet" type="text/css" href="../resources/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../resources/css/department_details.css" />
+		<script src="../resources/js/jquery-1.8.3.min.js"></script>
+	</head>
+	<body>
+		<div class='wrapper'>
+			<div class='location'>
+				<p class='title'>科室位置</p>
+				<p class='info'>7号门诊医技综合楼五楼</p>
+			</div>
+			<div class='introduce'>
+				<p class='title'>科室介绍</p>
+				<p class='info' style='padding-top: 5px;'>南京鼓楼医院，又名南京大学医学院附属鼓楼医院，是一所集医疗、数学、科研为一体的综合性大型三级甲等医院。前身是1892年由美国基督会资助的加拿大籍传教士威廉·爱德华·麦克林医学博士（William E.Macklin,中文译音“马林”）创建的一所“基督医院”，马林任首任院长，民间又称“马林医院”。</p>
+				<p class='info'>鼓楼医院由建院时50张病床，百余名员工，发展到现在已拥有核定床位2500张，在岗职工3863名，其中：卫生专业技术人员3398人，正、副主任医师400余人，正、副教授220余人，博士生导师40余人、硕士生导师180余人、40位著名专家享受国务院特殊津贴。2014年医院门急诊病人290余万人次，出院病人8.2万余例。</p>
+			</div>
+		</div>
+	</body>
+	<script>
+		$(function(){
+			var h = $("body").height() - $(".location").height() - 10;
+			$(".introduce").css("height", h+"px");
+		})
+	</script>
+</html>

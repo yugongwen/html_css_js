@@ -1,0 +1,37 @@
+<form class="form-horizontal common_form">
+  <div>
+    <div class="control-group">
+      <label class="control-label"><span>*</span>名称</label>
+      <div class="controls">
+        <input type="text" placeholder="请输入名称" name="name" minlength="6" maxlength="20" class="input-xlarge required">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label">时间</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge required Wdate" name="time" readonly="true" onclick="WdatePicker()">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label">状态</label>
+      <div class="controls">
+        <label class="radio">
+          <input type="radio" value="Option one" name="group" checked="checked">选项一</label>
+        <label class="radio">
+          <input type="radio" value="Option two" name="group">选项二</label>
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label">描述</label>
+      <div class="controls">
+        <div class="textarea">
+          <textarea rows="10" class="input-xxlarge"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="common_btn">
+    <button class="btn save" type="submit">保存</button>
+    <a class="btn" target="closeTab">取消</a>
+  </div>
+</form>

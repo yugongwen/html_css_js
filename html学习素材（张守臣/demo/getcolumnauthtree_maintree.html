@@ -1,0 +1,213 @@
+<form style="display: inline-block;" class="form-horizontal form-validate" name="form_tree" id="form_tree" method="get" action="addColumnAuth.action" onsubmit="return addColumnAuth(this, dialogAjaxDone);">
+	<input type="hidden" id="id" name="id" value="<ww:property value='id'/>"> 
+	<input type="hidden" id="authClass" name="authClass" value="<ww:property value='authClass'/>"> 
+	<input type="hidden" id="authType" name="authType" value="<ww:property value='authType'/>"> 
+	<input type="hidden" id="parentId" name="parentId" value="<ww:property value='parentId'/>"> 
+	<input type="hidden" id="ids" name="ids" value="">
+	<div style="width: 500px; height: 250px;">
+		<div class="tree-panel" style="width: 245px;height: 250px;overflow: auto;">
+				<ul id="ztree_main" class="ztree"></ul>
+		</div>
+		<div class="trigger close" onclick="$('.tree-panel',$.cssTab.focus()).toggle();$(this).toggleClass('close');"></div>
+		<div style="float:left;width: 245px;height: 250px;overflow: auto;">
+			<ul id="orglist">
+			</ul>
+		</div>
+	</div>
+	<div class="set-btn" data-spy="affix" data-offset-top="200">
+		<button class="btn green" type="button" onclick="$(this).submit();">保存</button>
+		<a class="btn" href="javascript:;" onclick="$css.closeDialog()">取消</a>
+	</div>
+</form>
+<script type="text/javascript" src="../oa/admin/js/ztree.js"></script>
+<script>
+	function orglist_addli(zTree,node){
+		var jshtml = '<li id="' +node.tId+ '">';
+			if(!node.chkDisabled){
+				jshtml += '<a href="javascript:delChecked(\'' +zTree+ '\',\'' +node.tId+ '\',orglist_delli)" title="删除"><img style="margin-bottom:-3px" src="../portal/images/icon/btn_del.png" alt="删除" /></a> &nbsp;' ;
+			}
+			jshtml += '<span style="cursor:pointer;" onclick="javascript:expandNode(\''+zTree+'\',\''+node.id+'\')" title="' +getNodePath(node)+ '">' +node.name+ '</span> &nbsp;';
+			jshtml += '</li>';
+		$('#orglist',$css.focusDialog()).append(jshtml);
+	}
+	function orglist_reload(zTree){
+		$('#orglist',$css.focusDialog()).html('');
+		orglist_reload_chkdisabled(zTree);
+		var nodes = getCheckedNodes(zTree),
+			nodes = getCheckedMainNodes(nodes),
+			node;
+		for(var i=0;i<nodes.length;i++){
+			node = nodes[i];
+			orglist_addli(zTree,node);
+		}
+	}
+	function orglist_reload_chkdisabled(zTree){
+		var nodes = $.fn.zTree.getZTreeObj(zTree).getNodesByParam("chkDisabled", true, null),
+		nodes = getCheckedMainNodes(nodes);
+		if(nodes){
+			for(var i=0;i<nodes.length;i++){
+				var node = nodes[i];
+				orglist_addli(zTree,node);
+			}
+		}
+	}
+	function orglist_delli(zTree,tId){
+		$('#orglist>li#'+tId,$css.focusDialog()).remove();
+	}
+	function addColumnAuth(form,callback){
+		var nodes = getCheckedNodes("ztree_main"),
+			nodes = getCheckedMainNodes(nodes);
+		var pars ="";
+		for(var i=0;i<nodes.length;i++){
+			pars += nodes[i].id;
+			if(i<nodes.length-1)pars+=",";
+		}
+		$("#ids",$css.focusDialog()).val(pars);
+		validateCallback(form, callback);
+		return false;
+	}
+	using('tree',function(){
+		function tree_param(){
+			var param = [];
+			param.push("authClass");param.push($("#authClass").val());
+			param.push("authType");param.push($("#authType").val());
+			param.push("id");param.push($("#id",$css.focusDialog()).val());
+			return param;
+		}
+		function tree_onClick(e, treeId, treeNode) {
+			//$("#parentId").val(treeNode ? treeNode.id : "0");
+		}
+		function zTreeOnCheck(event, treeId, treeNode) {
+		    if(treeNode){
+				//orglist_addli('ztree_main',treeNode);
+				orglist_reload('ztree_main');
+			}
+		};
+		var  tree_setting = {	
+			view: {
+				fontCss: function(treeId, treeNode){
+					return treeNode.font ? treeNode.font : {};
+				},
+				nameIsHTML: true,
+				showTitle:function(treeId, treeNode) {
+					if(!treeNode.title || treeNode.title=='' || treeNode.title==null){
+						/**
+						var treeObj = $.fn.zTree.getZTreeObj(treeId);
+						if (treeObj) {
+							treeNode.title=treeNode.name;
+							treeObj.updateNode(treeNode,true);
+						}
+						*/
+						return false;
+					}
+					return true;
+				}
+			},
+			check: {
+				enable: true
+			},
+			data : {
+				simpleData : {
+					enable : true
+				},
+				key: {
+					title: "title"
+				}
+			},
+			/*
+			async: {
+				enable: true,
+				url:"getColumnAuthSubTree.action",
+				autoParam:["id=parentId"],
+				otherParam:tree_param(),
+				type:"post"
+			},
+			*/
+			callback : {
+				onClick : tree_onClick,
+				onCheck: zTreeOnCheck,
+				onAsyncSuccess : function(event, treeId, treeNode, msg){
+					var treeObj = $.fn.zTree.getZTreeObj(treeId);
+					if(treeObj.getSelectedNodes().length==0){
+						var nodes = treeObj.getNodes();
+						treeObj.selectNode(nodes[0]);
+					}
+				}
+			}
+		};
+		var zNodes = [{
+        name: "父节点1 - 展开",
+        open: true,
+        children: [{
+            name: "父节点11 - 折叠",
+            children: [{
+                name: "叶子节点111"
+            }, {
+                name: "叶子节点112"
+            }, {
+                name: "叶子节点113"
+            }, {
+                name: "叶子节点114"
+            }]
+        }, {
+            name: "父节点12 - 折叠",
+            children: [{
+                name: "叶子节点121"
+            }, {
+                name: "叶子节点122"
+            }, {
+                name: "叶子节点123"
+            }, {
+                name: "叶子节点124"
+            }]
+        }, {
+            name: "父节点13 - 没有子节点",
+            isParent: true
+        }]
+    }, {
+        name: "父节点2 - 折叠",
+        children: [{
+            name: "父节点21 - 展开",
+            open: true,
+            children: [{
+                name: "叶子节点211"
+            }, {
+                name: "叶子节点212"
+            }, {
+                name: "叶子节点213"
+            }, {
+                name: "叶子节点214"
+            }]
+        }, {
+            name: "父节点22 - 折叠",
+            children: [{
+                name: "叶子节点221"
+            }, {
+                name: "叶子节点222"
+            }, {
+                name: "叶子节点223"
+            }, {
+                name: "叶子节点224"
+            }]
+        }, {
+            name: "父节点23 - 折叠",
+            children: [{
+                name: "叶子节点231"
+            }, {
+                name: "叶子节点232"
+            }, {
+                name: "叶子节点233"
+            }, {
+                name: "叶子节点234"
+            }]
+        }]
+    }, {
+        name: "父节点3 - 没有子节点",
+        isParent: true
+    }
+
+];
+	    $.fn.zTree.init($("#ztree_main",$css.focusDialog()), tree_setting, zNodes);    
+	})
+	orglist_reload('ztree_main');
+</script>
