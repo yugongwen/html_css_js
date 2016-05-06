@@ -39,7 +39,7 @@
             cursor:pointer;
             border-radius:2px;
             -webkit-transition-duration:0.4s;/* safari*/
-            transition-duration:0.4s;/*通用设置*/
+            transition-duration:0.4s;/*通用设置add test001*/
         }
         button:hover{
             background-color:#237AD0
